@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import axios, { AxiosInstance } from 'axios';
 import { PokeResponse } from './interfaces/poke.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Pokemon } from '../pokemon/entities/pokemon.entity';
 import { Model } from 'mongoose';
+import { AxiosAdapter } from '../common/adapters/axios.adapter';
 
 @Injectable()
 export class SeedService {
@@ -11,17 +11,22 @@ export class SeedService {
   constructor(
     // InjectModel(Pokemon.name)
     @InjectModel(Pokemon.name)
+
     private readonly pokemonModel: Model<Pokemon>,
+
+    private readonly http: AxiosAdapter, // Injectable de la interfaz HttpAdapter
+
+
   ) { }
 
-  private readonly axios: AxiosInstance = axios;
+
 
   async exceutedSeed() {
 
     // borramos la base de datos
     await this.pokemonModel.deleteMany({});
 
-    const { data } = await this.axios.get<PokeResponse>('https://pokeapi.co/api/v2/pokemon?limit=650');
+    const data  = await this.http.get<PokeResponse>('https://pokeapi.co/api/v2/pokemon?limit=650');
 
     // const insertPromisesArray: any[] = [];
 
