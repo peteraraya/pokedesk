@@ -15,6 +15,10 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
+      transform: true, // transformar los tipos de datos a JSON (por defecto)
+      transformOptions: {
+        enableImplicitConversion: true, // transformar los tipos de datos a JSON (por defecto)
+      },
     })
   );
 
