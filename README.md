@@ -32,7 +32,14 @@ $ npm install -g @nestjs/cli
 $ docker-compose up -d
 ```
 
-5. Ejecutar el servidor
+6. Reconstruir la base de datos solo en desarrollo
+
+```bash
+$ http://localhost:3000/seed
+```
+
+
+6. Ejecutar el servidor
 
 ```bash
 $ npm run start:dev
